@@ -233,13 +233,13 @@ function set(table, param, req, res) {
       let db = new sql('./SQLite.db'); // It uses SQLite3 database engine on database in file SQLite.sb
       if (param.event == 0) {
          if (param.id > 0) {
-            let sql = `UPDATE Headers SET Field = ?, HeaderText = ?, Width = ?, Format = ?, FontSize = ?, FontColor = ?, BackgroundColor = ? WHERE Id = ?`;
+            let sql = `UPDATE Headers SET Field = ?, HeaderText = ?, Width = ?, Format = ?, FontSize = ?, FontColor = ?, BackgroundColor = ?, IsVisible = ? WHERE Id = ?`;
             const stmt = db.prepare(sql);
-            stmt.run(param.field, param.headerText, param.width, param.format, param.fontSize, param.fontColor, param.backgroundColor, param.id);
+            stmt.run(param.field, param.headerText, param.width, param.format, param.fontSize, param.fontColor, param.backgroundColor,param.isVisible, param.id, );
          } else {
-            let sql = `INSERT INTO Headers (Field, HeaderText, Width, Format, FontSize, FontColor, BackgroundColor) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+            let sql = `INSERT INTO Headers (Field, HeaderText, Width, Format, FontSize, FontColor, BackgroundColor, IsVisible) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
             const stmt = db.prepare(sql);
-            stmt.run(param.field, param.headerText, param.width, param.format, param.fontSize, param.fontColor, param.backgroundColor);
+            stmt.run(param.field, param.headerText, param.width, param.format, param.fontSize, param.fontColor, param.backgroundColor, param.isVisible);
          }
       } else if (param.event == 3) {
          let sql = `ALTER TABLE TableData ADD COLUMN ` + param.field;
